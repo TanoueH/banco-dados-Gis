@@ -1,0 +1,13 @@
+pandas
+numpy
+geopandas
+shapely
+pyproj
+rasterio
+fiona
+sqlalchemy
+psycopg2-binary
+geoalchemy2
+scikit-learn
+python-dotenv
+matplotlib

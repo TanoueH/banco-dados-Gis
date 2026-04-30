@@ -1,0 +1,61 @@
+services:
+  postgis_db:
+    image: postgis/postgis:16-3.4
+    container_name: projeto_gis_postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-gisdb}
+      POSTGRES_USER: ${POSTGRES_USER:-gis_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gis_password}
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - projeto_gis_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: projeto_gis_grafana
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - postgis_db
+    networks:
+      - projeto_gis_net
+
+  gis_etl:
+    build: .
+    container_name: projeto_gis_etl
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./src:/app/src
+    environment:
+      DB_HOST: postgis_db
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB:-gisdb}
+      DB_USER: ${POSTGRES_USER:-gis_user}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-gis_password}
+    depends_on:
+      - postgis_db
+    networks:
+      - projeto_gis_net
+    command: python -m src.main
+
+volumes:
+  postgis_data:
+  grafana_data:
+
+networks:
+  projeto_gis_net:
+    driver: bridge

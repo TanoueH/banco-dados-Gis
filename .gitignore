@@ -4,8 +4,22 @@ __pycache__/
 
 .env
 
-outputs/
 data/raw/
+data/external/
+data/geospatial/raster/
+data/geospatial/dem/
+outputs/
+
 .ipynb_checkpoints/
 
-.DS_Store
+*.tif
+*.tiff
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.gpkg
+*.geojson
+*.sqlite
+*.db
