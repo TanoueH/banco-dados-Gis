@@ -22,4 +22,4 @@ outputs/
 *.gpkg
 *.geojson
 *.sqlite
-*.db
+*.db*.save
