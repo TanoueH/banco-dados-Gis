@@ -1,0 +1,5 @@
+model,target,n_train,n_test,accuracy,precision,recall,f1_score,roc_auc,classification_report_path,confusion_matrix_path,model_path
+logistic_regression,instability_label,60,20,1.0,1.0,1.0,1.0,1.0,outputs/ml/classification_report_logistic_regression_instability_label.txt,outputs/ml/confusion_matrix_logistic_regression_instability_label.png,outputs/ml/model_logistic_regression_instability_label.joblib
+decision_tree,instability_label,60,20,1.0,1.0,1.0,1.0,1.0,outputs/ml/classification_report_decision_tree_instability_label.txt,outputs/ml/confusion_matrix_decision_tree_instability_label.png,outputs/ml/model_decision_tree_instability_label.joblib
+random_forest,instability_label,60,20,1.0,1.0,1.0,1.0,1.0,outputs/ml/classification_report_random_forest_instability_label.txt,outputs/ml/confusion_matrix_random_forest_instability_label.png,outputs/ml/model_random_forest_instability_label.joblib
+gradient_boosting,instability_label,60,20,1.0,1.0,1.0,1.0,1.0,outputs/ml/classification_report_gradient_boosting_instability_label.txt,outputs/ml/confusion_matrix_gradient_boosting_instability_label.png,outputs/ml/model_gradient_boosting_instability_label.joblib
